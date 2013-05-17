@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html>
+	<head>
+    	<meta charset="utf-8" />
+        <style>
+			*{ padding:0; margin:0;}
+			.box{ /*width:960px;*/ margin:0 auto; border:1px solid red}
+			.loading{ background-color:red; min-height:100px;}
+			.clearfix:after{ content:"\u20"; display:block; height:0; font-size:0; clear:both;}
+			.item{ border:1px solid #000; width:220px; margin-right:10px; margin-bottom:20px;}
+			.item img{ width:100%;}
+			.item p{ height:25px; text-align:center; line-height:25px; overflow:hidden;}
+		</style>
+        <script src="../_$.js"></script>
+        <script src="waterfall.js"></script>
+        <script>
+			//_$(document).ready(function(){
+			window.onload=function(){
+				new _$.Waterfall({
+					"container": _$("#container").node,
+					"columnWidth": 230,
+					/*"columnCount": 4,*/
+					"items": ".item"
+				}).reLayout();
+			//});
+			}
+		</script>
+    </head>
+    <body>
+    	<div id="container" class="box">
+            <div class="item">
+                <img src="img/01.jpg" alt="" />
+                <p>img/01.jpg</p>
+            </div>
+            
+        </div>
+        <div style="height:25px; background:#CCC; text-align:center;">loading....</div>
+    </body>
+</html>

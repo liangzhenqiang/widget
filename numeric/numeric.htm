@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8" />
+        <title>numeric</title>
+        <link href="../SyntaxHighlighter.css" rel="stylesheet" />
+        <link href="numeric.css" rel="stylesheet" />
+        <style>
+			.dp-highlighter{ margin-top: 0 !important;}
+			.container, .description{ border:2px solid #EEE; margin-left:10px;}
+		</style>
+        <script src="../$.js"></script>
+        <script src="numeric.js"></script>
+        <!--<script src="../widget.js"></script>-->
+        <!--<script src="../SyntaxHighlighter.js"></script>-->
+        
+        <script>
+			_$(document).ready(function(){
+				new _$.Numeric({
+					"element": document.getElementById("mynum"),
+					"value": 3,
+					"maximum": 100,
+					"minimum": 0,
+					"increment": 5,
+					"format": "个"
+				});
+				//dp.SyntaxHighlighter.HighlightAll('code');
+			});
+		</script>
+    </head>
+    <body>
+        <div class="description">
+        	<h3>按顺序导入</h3>
+        	<ul>
+            	<li>calendar.css</li>
+            	<li>$.js脚本</li>
+                <li>calendar.js脚本</li>
+            </ul>
+        </div>
+    	<div class="container">
+        	<h2>日历</h2>
+            <div id="calendar"></div>
+            <input type="text" value="1" id="mynum" />
+            <div class="section">
+                <code>
+                <textarea readonly="readonly" name="code" class="jscript">
+                    var calendar = new _$.Calendar({"date": "2012-12-21", "format": "yyyy-MM-dd"});//创建日历，date指定日期，默认当前日期，format日历格式
+                    calendar.appendTo(node);//添加到node对象中，node为dom节点
+                    calendar.bind("click",fn);//绑定单击事件，fn回调函数参数format获取的日期，el为单击元素
+                </textarea>
+                </code>
+            </div>
+        </div>
+    </body>
+</html>

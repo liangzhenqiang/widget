@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8" />
+        <title>table</title>
+        <link href="../SyntaxHighlighter.css" rel="stylesheet" />
+        <link href="table.css" rel="stylesheet" />
+        <style>
+			.dp-highlighter{ margin-top: 0 !important;}
+			.container, .description{ border:2px solid #EEE; margin-left:10px;}
+			
+			
+			#smartTable{ width:800px; margin:20px}
+			
+			.table a{ color:#666;}			
+			/*.w100{ width:200px;height:20px;line-height:20px;overflow:hidden;text-overflow:ellipsis; -o-text-overflow:ellipsis; -moz-text-overflow:ellipsis; -webkit-text-overflow:ellipsis;}*/
+		</style>
+        <script src="../$.js"></script>
+        <script src="hashchange.js"></script>
+        <script src="table.js"></script>
+        <script src="../data/data.js"></script>
+        <script src="../SyntaxHighlighter.js"></script>
+        
+        <script>
+			_$(document).ready(function(){
+				var store = new _$.data.Store({
+					"proxy": data,
+					"fields": ["promotionLogTaskId","userInfo_userName","description"]	
+				});
+				store.load();
+				store.each(function(record){
+					//console.log(record.get("userInfo_userName"));	
+				});
+				
+				//for(var i = 0; i < store.getCount(); i++)
+				//console.log(store.getAt(i).get("name"))
+				var arr = [
+					{"name": "hello", "language": "java", "version": 1.6},
+					{"name": "world", "language": "c", "version": 0.0}
+				];
+				store.add(arr,0);
+				store.add({"description": "", "content": true});
+				store.remove(1);
+				
+				/*console.log(store.filter(function(record){
+					//return record.get("promotionLogTaskId") > 0 && record.get("promotionLogTaskId") <= 5;
+					//return record.get("userInfo_userName") == "马能福";
+					return record.get("version") || typeof record.get("version") == "number";
+				}));*/
+				store.getAt(1).set("userInfo_userName","android");
+				//console.log(store)
+				var T = (function(){
+					var d = document, newRow, arr = [];
+					function view(el){
+						var curRow = el.parentNode.parentNode,
+							newCell;
+						//newRow && arr.unshift(newRow);
+						if(!curRow.create){
+							newRow = d.createElement("tr");
+							newCell = d.createElement("td");
+							newCell.innerHTML = curRow.cells[2].innerHTML;
+							newCell.setAttribute("colSpan",4);
+							newRow.appendChild(newCell);
+							curRow.parentNode.insertBefore(newRow,curRow.nextSibling);
+							curRow.create = 1;
+						}
+						else{
+							_$(curRow.nextSibling).css("display") == "none" ? curRow.nextSibling.style.display = "" : curRow.nextSibling.style.display = "none";
+						}
+					}
+					function del(el,fn){
+						var curRow = el.parentNode.parentNode, t;
+						_$("#del")[0].innerHTML = "已删除 <span style='color:red;'><b>" + curRow.cells[2].innerHTML + "</b></span>";
+						_$("#del")[0].style.display = "block";
+						if(t){
+							clearTimeout(t);	
+						}
+						t = setTimeout(function(){
+							_$("#del")[0].style.display = "none";
+							fn && fn();
+						},2000);
+						
+						curRow.parentNode.removeChild(curRow);
+						newRow && newRow.parentNode.removeChild(newRow);
+					}
+					function selected(el,items){
+						var flag = function(){
+							var g = 0;
+							for(var i = 0; items.length ^ i; ){
+								var item = items[i++];
+								if(!item.checked){
+									g = 0;
+									break;	
+								}
+								if(item.checked){
+									g = 1;
+								}
+								else{
+									g = 0;
+								}
+							}
+							return g;				
+						};
+						var me = el;
+						if(!!~(el.className.indexOf("selected"))){
+							_$.each(items,function(el){
+								el.checked = me.checked;
+							});
+						}
+						else{
+							_$(".selected")[0].checked = flag() ? true : false;	
+						}
+					}
+					return {
+						"view": view,
+						"del": del,
+						"selected": selected
+					}
+				})();
+				var j2 = {
+					"root": [{"id":9, "name": "520"}],
+					"child": [{"id":100, "name": "hello"}],
+					"r": {
+						"a": [{"id": 1008, "name": "java"}],
+						"b": {
+							"ba": [
+								{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf", "url": "baidu.com"},
+								{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf", "url": "baidu.com"},
+								{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf", "url": "baidu.com"},
+								{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf", "url": "baidu.com"},
+								{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf"},{"id": 500, "name": "leaf", "url": "baidu.com"}
+							]
+						}
+					}
+				}
+				//{"data":{"list:[]"},"msg":"sucesss"}
+				var table = new _$.SmartTable({
+					"titles": {
+						"id": {"name": "<input type='checkbox' class='selected' />", "fields": ["id"]},
+						"name": {"name": "名称", "fields": ["name"]},
+						"url": {"name": "内容", "fields": ["url"], "maxlength": 8},
+						"opera": {"name": "操作", "custom": true}
+					},
+					"tpl": {
+						"id": "<input type='checkbox' value='{id}' />{id}",
+						"name": "<a href=''>{name}</a>",
+						"url": "<div class='w100'>{url}</div>",
+						"opera": "<a href='javascript:void(0);' class='view'>详细</a> <a href='javascript:void({id});' class='del'>删除</a>"
+					},
+					"url": "table.jsp",
+					"root": "",
+					"column": 4
+				});
+				table.appendTo(_$("#smartTable")[0]).nextPage({"link": {"first": "首页", "prev": "上页", "next": "下页", "last": "尾页", "count": 3}});
+				//console.log(table.getContext())
+				table.bind("click",function(el,t){
+					if(!!~(el.className.indexOf("view"))){
+						T.view(el)
+					}
+					else if(!!~(el.className.indexOf("del"))){
+						T.del(el,function(){
+							table.reload({"url": "table.jsp", "params": function(){
+								return {
+									"del": el.parentNode.parentNode.getElementsByTagName("td")[0].getElementsByTagName("input")[0].value,
+									"column": 4,
+									"page": 1	
+								}	
+							}});
+						});
+					}
+					else if(el.tagName == "INPUT" && el.type == "checkbox"){
+						T.selected(el,t.getElementsByTagName("tbody")[0].getElementsByTagName("input"));
+					}
+				});
+				_$("#add").bind("click",function(){
+					this.index || (this.index = 12);
+					table.addRow({"id": this.index++, "name": "my", "url": "http://www.baidu.com"});
+				});
+				dp.SyntaxHighlighter.HighlightAll('code');
+			});
+			
+			var data = {"length": 7,"data":[
+{"promotionLogTaskId":"1","province":"3","city":"0","county":"0","organization":"0","userInfo_userId":"1","userInfo_userName":"马能福","userInfo_userAddress":"海淀","userInfo_userProfession":"计算机","userInfo_userSex":"0","userInfo_userBirthday":"2012-10-21","userInfo_userPhoneNo":"15210384668","userInfo_userNation":"汉","userInfo_userEducational":"专科","userInfo_userPersonHousehold":"0","userInfo_userSchool":"","userInfo_userFarmProduct":"水果","userInfo_userProvinceId":"3","userInfo_userCityId":"0","userInfo_userCountyId":"0","userInfo_userOrganId":"0","userInfo_userUnit":"","userInfo_userPhoto":"images/common/DefaultPhoto.png","userInfo_userMail":"","userInfo_userTime":"null","userInfo_userUpdateTime":"null","userInfo_userState":"0","userInfo_userInfoReserved":"","taskSum":"12","taskCount":"1","yearMonth":"2012-10-01","promotionLogTaskReserved":""},
+{"promotionLogTaskId":"3","province":"3","city":"0","county":"0","organization":"0","userInfo_userId":"76","userInfo_userName":"于磊","userInfo_userAddress":"","userInfo_userProfession":"计算机","userInfo_userSex":"0","userInfo_userBirthday":"2012-10-21","userInfo_userPhoneNo":"108095597","userInfo_userNation":"","userInfo_userEducational":"","userInfo_userPersonHousehold":"0","userInfo_userSchool":"","userInfo_userFarmProduct":"","userInfo_userProvinceId":"3","userInfo_userCityId":"0","userInfo_userCountyId":"0","userInfo_userOrganId":"0","userInfo_userUnit":"","userInfo_userPhoto":"images/common/DefaultPhoto.png","userInfo_userMail":"","userInfo_userTime":"2012-10-21","userInfo_userUpdateTime":"2012-10-21","userInfo_userState":"0","userInfo_userInfoReserved":"","taskSum":"86","taskCount":"0","yearMonth":"2012-10-01","promotionLogTaskReserved":""},{"promotionLogTaskId":"4","province":"3","city":"0","county":"0","organization":"0","userInfo_userId":"77","userInfo_userName":"李秀峰","userInfo_userAddress":"","userInfo_userProfession":"兽医","userInfo_userSex":"0","userInfo_userBirthday":"2012-10-21","userInfo_userPhoneNo":"010-82106287","userInfo_userNation":"","userInfo_userEducational":"","userInfo_userPersonHousehold":"0","userInfo_userSchool":"","userInfo_userFarmProduct":"","userInfo_userProvinceId":"3","userInfo_userCityId":"0","userInfo_userCountyId":"0","userInfo_userOrganId":"0","userInfo_userUnit":"","userInfo_userPhoto":"images/common/DefaultPhoto.png","userInfo_userMail":"","userInfo_userTime":"2012-10-21","userInfo_userUpdateTime":"2012-10-21","userInfo_userState":"0","userInfo_userInfoReserved":"","taskSum":"86","taskCount":"0","yearMonth":"2012-10-01","promotionLogTaskReserved":""},{"promotionLogTaskId":"5","province":"3","city":"0","county":"0","organization":"0","userInfo_userId":"1520","userInfo_userName":"安卓","userInfo_userAddress":"信息所","userInfo_userProfession":"计算机","userInfo_userSex":"0","userInfo_userBirthday":"2012-10-21","userInfo_userPhoneNo":"0","userInfo_userNation":"","userInfo_userEducational":"","userInfo_userPersonHousehold":"0","userInfo_userSchool":"","userInfo_userFarmProduct":"","userInfo_userProvinceId":"3","userInfo_userCityId":"0","userInfo_userCountyId":"0","userInfo_userOrganId":"0","userInfo_userUnit":"","userInfo_userPhoto":"images/common/DefaultPhoto.png","userInfo_userMail":"","userInfo_userTime":"2012-10-21","userInfo_userUpdateTime":"2012-10-21","userInfo_userState":"0","userInfo_userInfoReserved":"","taskSum":"45","taskCount":"0","yearMonth":"2012-10-01","promotionLogTaskReserved":""},{"promotionLogTaskId":"6","province":"3","city":"0","county":"0","organization":"0","userInfo_userId":"2367","userInfo_userName":"李志鹏","userInfo_userAddress":"sss","userInfo_userProfession":"sss","userInfo_userSex":"0","userInfo_userBirthday":"2012-10-01","userInfo_userPhoneNo":"13532164587","userInfo_userNation":"汉族","userInfo_userEducational":"专科","userInfo_userPersonHousehold":"0","userInfo_userSchool":"","userInfo_userFarmProduct":"是","userInfo_userProvinceId":"3","userInfo_userCityId":"0","userInfo_userCountyId":"0","userInfo_userOrganId":"0","userInfo_userUnit":"","userInfo_userPhoto":"upload/images/2012/10/1351164123707_.jpg","userInfo_userMail":"597549636@qq.com","userInfo_userTime":"null","userInfo_userUpdateTime":"null","userInfo_userState":"0","userInfo_userInfoReserved":"","taskSum":"124","taskCount":"4","yearMonth":"2012-10-01","promotionLogTaskReserved":""},{"promotionLogTaskId":"0","province":"0","city":"0","county":"0","organization":"0","userInfo_userId":"2378","userInfo_userName":"","userInfo_userAddress":"","userInfo_userProfession":"","userInfo_userSex":"0","userInfo_userBirthday":"null","userInfo_userPhoneNo":"","userInfo_userNation":"","userInfo_userEducational":"","userInfo_userPersonHousehold":"0","userInfo_userSchool":"","userInfo_userFarmProduct":"","userInfo_userProvinceId":"3","userInfo_userCityId":"0","userInfo_userCountyId":"0","userInfo_userOrganId":"0","userInfo_userUnit":"","userInfo_userPhoto":"","userInfo_userMail":"","userInfo_userTime":"null","userInfo_userUpdateTime":"null","userInfo_userState":"0","userInfo_userInfoReserved":"","taskSum":"0","taskCount":"0","yearMonth":"2012-10-01","promotionLogTaskReserved":""},{"promotionLogTaskId":"0","province":"0","city":"0","county":"0","organization":"0","userInfo_userId":"2382","userInfo_userName":"","userInfo_userAddress":"fasga","userInfo_userProfession":"gasdga","userInfo_userSex":"1","userInfo_userBirthday":"2012-10-25","userInfo_userPhoneNo":"13333333333","userInfo_userNation":"汉","userInfo_userEducational":"专科","userInfo_userPersonHousehold":"0","userInfo_userSchool":"","userInfo_userFarmProduct":"dsag","userInfo_userProvinceId":"3","userInfo_userCityId":"0","userInfo_userCountyId":"0","userInfo_userOrganId":"0","userInfo_userUnit":"","userInfo_userPhoto":"","userInfo_userMail":"1013704452@qq.com","userInfo_userTime":"null","userInfo_userUpdateTime":"null","userInfo_userState":"0","userInfo_userInfoReserved":"","taskSum":"0","taskCount":"0","yearMonth":"2012-10-01","promotionLogTaskReserved":""}]}
+			//console.log(data)
+		</script>
+    </head>
+    <body>
+        <div class="description">
+        	<h3>按顺序导入</h3>
+        	<ul>
+            	<li>table.css</li>
+            	<li>$.js脚本</li>
+                <li>table.js脚本</li>
+            </ul>
+        </div>
+    	<div class="container">
+        	<h2>AJAX表格</h2>
+            <div id="smartTable"></div>
+            <div id="del" style="width:300px; height:25px; margin-left:25px; border:1px solid #066; background:#DDD; display:none;"></div>
+            <button id="add">add</button>
+            <div class="section">
+                <code>
+                <textarea readonly="readonly" name="code" class="jscript">
+                    //将使用hashchange或iframe保存AJAX状态，建立符合JSON格式的table数据
+                    /*@param titles
+                    * 提取JSON数据中的字段
+                    * @attr name用于显示th的别名，支持html
+                    * @attr fields用于template匹配的字段
+                    * @attr custom JSON数据将不提取此字段
+                    */
+                    var titles = {
+                        "id": {"name": "ID", "fields": ["id"]},
+                        "name": {"name": "名称", "fields": ["name"]},
+                        "url": {"name": "内容", "fields": ["url"]},
+                        "opera": {"name": "操作", "custom": true}
+                    };
+                    /*@param tpl
+                    * 匹配titles的属性fields模板
+                    * {}作为正则的匹配规则value
+                    */
+                    var tpl = {
+                        "id": "<input type='checkbox' value='{id}' />{id}",
+                        "name": "<a href=''>{name}</a>",
+                        "opera": "<a href='javascript:void(0);' class='view'>详细</a> <a href='javascript:void(0);' class='del'>删除</a>"
+                    };
+                    /*@param url
+                    * 请求地址，符合格式JSON，二维数组
+                    * 格式[{},{}]
+                    * 格式[[],[]]
+                    */
+                    /*@param root
+                    * 指定JSON显示的节点
+                    */
+                    /*@param column
+                    * 配合url参数的显示列数
+                    */
+                    var table = new _$.SmartTable({
+                        "titles": titles,
+                        "tpl": tpl,
+                        "url": "table.jsp",
+                        "root": "data.list",
+                        "column": 8
+                    });
+                    table.appendTo(_$("#smartTable")[0]);//添加到DOM结构中
+                    table.nextPage({"link": {"first": "首页", "prev": "上页", "next": "下页", "last": "尾页", "count": 3}});//显示页码
+                    table.bind("click",function(){});//绑定方法
+                    table.reload();//重新载入
+                </textarea>
+                </code>
+            </div>
+        </div>
+        <!--<iframe id="ajaxHistory" width="600"></iframe>-->
+    </body>
+</html>

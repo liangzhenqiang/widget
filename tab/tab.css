@@ -1,0 +1,12 @@
+﻿.tab-panel{ /*border:1px solid #DDD*/}
+.tab-nav{ height:30px; padding:0; margin:0; list-style:none; border-bottom:1px solid #ABABAB;}
+.tab-nav li{ height:29px; *width:50px; line-height:29px; margin-right:5px; float:left; display:inline; background:#FFF; border:1px solid #ABABAB; border-bottom:none; box-shadow:2px 2px 3px #EDEDED inset;}
+.tab-nav li a{ padding:0 12px; display:block; text-decoration:none; color:#555;}
+.tab-nav li a:hover{ background:#EEE;}
+.tab-nav .active{ position:relative; height:30px;}
+.tab-content{ overflow:hidden; border:1px solid #ABABAB; border-top:none;}
+.tab-content *{ padding:0; margin:0;}
+.tab-content{ /*padding:15px 15px 15px 20px;*/}
+.tab-content .tab-pane{ display:none;}
+.tab-content .active{ display:block;}
+.tab-content iframe{ width:100%; height:300px; border:none;}

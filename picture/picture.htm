@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8" />
+        <title>Picture identification</title>
+        <!--<link href="../SyntaxHighlighter.css" rel="stylesheet" />-->
+        <link href="picture.css" rel="stylesheet" />
+        <style>
+			body{ padding:0; margin:0;}
+		</style>
+        <script src="../$.js"></script>
+        <script src="picture.js"></script>
+        <!--<script src="../SyntaxHighlighter.js"></script>-->
+        <script>
+			_$(document).ready(function(){
+			//window.onload = function(){
+				var pic = new _$.widget.SmartPicture(document.getElementById("picture"));
+				pic.identity({
+					"tags": [{"x":80, "y": 50, "width": 80, "height": 70, "text": "beijing"}, {"x":180, "y": 150, "width": 50, "height": 50, "text": "tianjin"}]
+				});
+				_$("#add").bind("click",function(){
+					pic.addIdentity({
+						"element": (function(){
+							var div = document.createElement("div"),
+								ta = document.createElement("textarea"),
+								ok = document.createElement("input");
+							ok.type = "button";
+							ok.value = "OK";
+							ta.onclick = function(){
+								this.focus();
+							};
+							ok.onclick = function(){
+								pic.addTag(document.createTextNode(ta.value));
+								pic.close();
+							};
+							div.appendChild(ta);
+							div.appendChild(ok);
+							return div;
+						})()	
+					});
+				});
+				//pic.rotation();
+				//dp.SyntaxHighlighter.HighlightAll('code');
+			//}
+			});
+		</script>
+    </head>
+    <body>
+        <!--<div class="description">
+        	<h3>按顺序导入</h3>
+        	<ul>
+            	<li>tree.css</li>
+            	<li>_$.js脚本</li>
+                <li>tree.js脚本</li>
+            </ul>
+        </div>-->
+    	<div class="container" style="margin:20px 60px">
+            <img src="../images/map.png" alt="" id="picture" />
+            <a href="javascript:void(0);" id="add" style="position:absolute;">添加tag</a>
+            <div class="section">
+                <code>
+                <textarea readonly="readonly" name="code" class="jscript">
+                    var options=new _$.Options("simple");//创建普通树，默认为普通树
+                    options.appendTo(node);//添加到node对象中，node为dom节点
+                    options.bind("click","../tree/tree.jsp?id=3",fn);//绑定单击事件，传递json格式，符合["one","two"]，fn为回调函数
+                    options.doClickSpace();//点击空白处取消
+                </textarea>
+                </code>
+            </div>
+        </div>
+        <!--<iframe id="ajaxHistory" width="600"></iframe>-->
+    </body>
+</html>

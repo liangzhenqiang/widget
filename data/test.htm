@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8" />
+        <title>data</title>
+        <style>
+			.container{}
+			.chart{ width:400px; height:350px; border:1px solid #CCC; float:left; margin-left:15px; margin-top:15px;}
+		</style>
+        <script src="../$.js"></script>
+        <script src="data.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+        <script src="http://code.highcharts.com/highcharts.src.js"></script>
+        <script>
+			_$(document).ready(function(){
+				var a = {"data":
+{"AnnualIncome":[{"result":12,"title":"北京市"},{"result":10,"title":"天津市"},
+{"result":10,"title":"河北省"},{"result":10,"title":"山西省"},
+{"result":10,"title":"内蒙古自治区"},{"result":10,"title":"辽宁省"},
+{"result":10,"title":"吉林省"},{"result":10,"title":"黑龙江省"},
+{"result":10,"title":"上海市"},{"result":10,"title":"江苏省"},
+{"result":10,"title":"浙江省"},{"result":10,"title":"安徽省"},
+{"result":10,"title":"福建省"},{"result":10,"title":"江西省"},
+{"result":10,"title":"山东省"},{"result":10,"title":"河南省"},
+{"result":10,"title":"湖北省"},{"result":10,"title":"湖南省"},
+{"result":10,"title":"广东省"},{"result":10,"title":"广西壮族自治区"},
+{"result":10,"title":"海南省"},{"result":10,"title":"重庆市"},
+{"result":10,"title":"四川省"},{"result":10,"title":"贵州省"},
+{"result":10,"title":"云南省"},{"result":10,"title":"西藏自治区"},
+{"result":10,"title":"陕西省"},{"result":10,"title":"甘肃省"},
+{"result":10,"title":"青海省"},{"result":10,"title":"宁夏回族自治区"},
+{"result":10,"title":"新疆维吾尔自治区"},{"result":10,"title":"香港特别行政区"},
+{"result":10,"title":"澳门特别行政区"},{"result":10,"title":"台湾省"}],
+
+"Organization":[{"result":4,"title":"北京市"},{"result":10,"title":"天津市"},{"result":10,"title":"河北省"},{"result":10,"title":"山西省"},
+{"result":10,"title":"内蒙古自治区"},{"result":10,"title":"辽宁省"},
+{"result":10,"title":"吉林省"},{"result":10,"title":"黑龙江省"},
+{"result":10,"title":"上海市"},{"result":10,"title":"江苏省"},
+{"result":10,"title":"浙江省"},{"result":10,"title":"安徽省"},
+{"result":10,"title":"福建省"},{"result":10,"title":"江西省"},
+{"result":10,"title":"山东省"},{"result":10,"title":"河南省"},
+{"result":10,"title":"湖北省"},{"result":10,"title":"湖南省"},
+{"result":10,"title":"广东省"},{"result":10,"title":"广西壮族自治区"},
+{"result":10,"title":"海南省"},{"result":10,"title":"重庆市"},
+{"result":10,"title":"四川省"},{"result":10,"title":"贵州省"},
+{"result":10,"title":"云南省"},{"result":10,"title":"西藏自治区"},
+{"result":10,"title":"陕西省"},{"result":10,"title":"甘肃省"},
+{"result":10,"title":"青海省"},{"result":10,"title":"宁夏回族自治区"},
+{"result":10,"title":"新疆维吾尔自治区"},{"result":10,"title":"香港特别行政区"},
+{"result":10,"title":"澳门特别行政区"},{"result":10,"title":"台湾省"}]},"msg":"success"}
+//console.log(a["data"]["AnnualIncome"]);
+				function getData(obj,fields){
+					var len = obj.length,
+						arr = [];
+					while(len--){
+						arr[len] = obj[len][fields];
+					}
+					return arr;
+				}
+				//console.log(fn(a["data"]["AnnualIncome"],"result"));
+				var json = {
+					"child": [
+						{
+							"id": "id1",
+							"series": [
+								{"name": "A", "data": [10,20,30]}
+							],
+							"chart": {"renderTo": "chart"}
+						}
+					]	
+				}
+				var store = new _$.data.Store({
+					"proxy": json,
+					"root": "child"
+				});
+				store.load();
+				
+				store.add([{
+					"mapping": "b",
+					"series": [
+						{"name": "AJAX", "data": [[15,20,25,30]], "type": "area"}
+					],
+					"chart": {"renderTo": "chart4"}
+				}]);
+				store.add({"title": {"text": "JAVA"}});
+				var charts = [
+					{"series": [{"name": "ANDROID", "data": [100,200], "type": "scatter"}], "chart": {"renderTo": "chart5"}},
+					{"series": [{"name": "ANDROID", "data": [20,30,40,10], "type": "spline"}], "chart": {"renderTo": "chart6"}}
+				];
+				store.add(charts);
+				store.add([{
+					"mapping": "my",
+					"series": [{"name": "Javascript", "data": getData(a["data"]["AnnualIncome"],"result"), "type": "column"}],	
+					"chart": {"renderTo": "mychart"}
+				}]);
+				store.add([{
+					"mapping": "mypie",
+					
+				}])
+				store.each(function(record,data){
+					if(record.get("mapping") == "my"){
+						//console.log(record);
+						store.add({"xAxis": {"categories": getData(a["data"]["AnnualIncome"],"title"), "labels":{"rotation":330,"align":"right", "x":10}}});
+						store.add({"exporting":{"buttons":{"exportButton":{"enabled":false},"printButton":{"enabled":false}}},"tooltip":{"pointFormat":"{point.y}????"}})
+					}
+					if(record.get("mapping") == "b"){}
+					new Highcharts.Chart(data);
+				});
+				console.log(store.filter(function(record){ return record.get("mapping") == "my"; }));
+			});
+		</script>
+    </head>
+    <body>
+    	<div class="container">
+        	<div id="mychart" style="width:90%; height:250px; border:1px solid red"></div>
+        	<div id="chart3" class="chart" style="width:1000px"></div>
+        	<div id="chart" class="chart"></div>
+            <div id="chart2" class="chart"></div>
+            
+            <div id="chart4" class="chart"></div>
+            <div id="chart5" class="chart"></div>
+            <div id="chart6" class="chart"></div>
+        </div>
+    </body>
+</html>

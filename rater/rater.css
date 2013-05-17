@@ -1,0 +1,8 @@
+﻿.rater{ height:22px; position:relative; font:12px/1.5 Arial;}
+.rater .stars, .rater .msg{ height:100%; float:left; display:inline; /* border:1px solid red*/}
+.rater .msg{ line-height:22px; margin-left:15px; margin-top:3px; }
+.rater .stars:after{ content:"\u0000"; height:0; width:0; font-size:0; display:block; clear:both; visibility:hidden;}
+.rater .stars{ zoom:1;}
+.rater .stars a{ width:19px; height:18px; float:left; display:inline; margin-right:5px; text-indent:-9999em; background:url("images/star.png") 0 0 no-repeat;}
+.rater .stars a.on{background:url("images/star.png") 0 -28px no-repeat;}
+.rater .prompt{ width:250px; height:40px; display:none; position:absolute; left:0; top:23px; padding:6px 10px; background:#FFF; border:1px solid #CCC;}

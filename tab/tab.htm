@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8" />
+        <title>tab</title>
+        <link href="../SyntaxHighlighter.css" rel="stylesheet" />
+        <style>
+			.dp-highlighter{ margin-top: 0 !important;}
+			.container, .description{ border:2px solid #EEE; margin-left:10px;}
+			
+			.tab-panel{ /*border:1px solid #DDD*/ width:400px}
+			.tab-nav{ height:30px; padding:0; margin:0; list-style:none; border-bottom:1px solid #ABABAB; position:relative;}
+			.tab-nav li{ /*width:30px;*/ height:29px; *width:50px; line-height:29px; margin-right:5px; padding:0 8px; float:left; display:inline; background:#FFF; border:1px solid #ABABAB; border-bottom:none; box-shadow:2px 2px 3px #EDEDED inset;}
+			.tab-nav li a{ width:100%; display:block; text-align:center; text-decoration:none; color:#555; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis;}
+			.tab-nav li a:hover{ /*background:#EEE;*/}
+			.tab-nav .active{ position:relative; height:30px;}
+			.tab-nav .more{ width:15px; margin:0; padding:0; /*position:absolute; right:0; top:0;*/ border:none; cursor:pointer; font-family:Arial,sans-serif; font-size:12px; color:#555; box-shadow:none;}
+			.tab-nav .more div{ width:100px; border:1px solid #ABABAB; position:absolute; right:5px; top:25px; background:#FFF; visibility:hidden;}
+			.tab-nav .show div{ visibility:visible;}
+			.tab-nav .more a{ display:block; height:25px; line-height:25px; text-align:left;}
+			.tab-content{ overflow:hidden; border:1px solid #ABABAB; border-top:none; min-height:100px;}
+			.tab-content *{ padding:0; margin:0;}
+			.tab-content{ /*padding:15px 15px 15px 20px;*/}
+			.tab-content .tab-pane{ display:none;}
+			.tab-content .active{ display:block;}
+			.tab-content iframe{ width:100%; height:300px; border:none;}
+		</style>
+        <script src="../$.js"></script>
+        <script src="../data/data.js"></script>
+        <script src="tab.js"></script>
+        <script src="../SyntaxHighlighter.js"></script>
+        
+        <script>
+			_$(document).ready(function(){
+				var json = {
+						"nav": [{"name": "消息", "content": "../index.html"}, {"name": "任务分配",  "content": _$(".description")[0]}]
+					},
+					store = new _$.data.Store({
+						"proxy": json,
+						"root": "nav"	
+					});
+				store.load();
+				var item = _$("li");
+				for(var i = 0; i ^ 7; i++){
+					store.add([{"name": "Tab " + i, "content": [item[0],item[1],item[2],_$("h2")[0],_$("h3")[0],_$("textarea")[0],_$("code")[0]][i]}]);
+				}
+				var tab =  new _$.TabPanel({
+					"nav": store.datas,//filter(function(record){ return /\w+(\d+)/.test(record.get("name")); }),
+					"show": 1
+				});
+				tab.appendTo(_$("#tabPanel")[0]);
+				tab.bind("click",function(el){
+					console.log(el);
+				});
+				dp.SyntaxHighlighter.HighlightAll('code');
+			});
+		</script>
+    </head>
+    <body>
+        <div class="description">
+        	<h3>按顺序导入</h3>
+        	<ul>
+            	<li>tree.css</li>
+            	<li>_$.js脚本</li>
+                <li>tree.js脚本</li>
+            </ul>
+        </div>
+    	<div class="container">
+        	<h2>普通列表</h2>
+            <div id="tabPanel"></div>
+            
+            <div class="section">
+                <code>
+                <textarea readonly="readonly" name="code" class="jscript">
+                    var options=new _$.Options("simple");//创建普通树，默认为普通树
+                    options.appendTo(node);//添加到node对象中，node为dom节点
+                    options.bind("click","../tree/tree.jsp?id=3",fn);//绑定单击事件，传递json格式，符合["one","two"]，fn为回调函数
+                    options.doClickSpace();//点击空白处取消
+                </textarea>
+                </code>
+            </div>
+        </div>
+        <!--<iframe id="ajaxHistory" width="600"></iframe>-->
+    </body>
+</html>

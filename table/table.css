@@ -1,0 +1,14 @@
+﻿.table{ width:100%; max-width:100%; border-collapse:separate; border-spacing:0; color:#666; font-size:13px; font-family:"Ubuntu", Helvetica, Arial, sans-serif; border:1px solid #DDD; border-left:0; border-radius:4px;}
+.table a{ text-decoration:none;}
+.table a:hover{ text-decoration:underline;}
+.table th, .table td{padding:8px; line-height:18px; text-align:left; border-left:1px solid #DDD;}
+.table th{color:#444; font-size:14px; font-weight:bold;}
+.table td{ border-top:1px solid #DDD; height:25px;}
+.table tr:nth-of-type(even){ background:#F9F9F9;}
+.page{ margin-top:10px; height:25px; line-height:25px; /*border:1px solid red*/}
+.page a, .page span{ float:left;}
+.page a{ /*display:inline-block;*/ width:50px; height:100%; text-align:center; border:1px solid #EBEBEB; border-left:none; text-decoration:none; color:#666; font-size:14px;}
+.page .first{ width:60px; border-left:1px solid #DDD; -webkit-border-radius:3px 0 0 3px; -moz-border-radius:3px 0 0 3px; border-radius: 3px 0 0 3px;}
+.page .last{width:60px; -webkit-border-radius:0 3px 3px 0; -moz-border-radius:0 3px 3px 0; border-radius:0 3px 3px 0;}
+/*.page a:hover{ background:#ececec;}*/
+.page a.on{ background:whiteSmoke}

@@ -1,0 +1,5 @@
+﻿.x-numeric{ display:inline; float:none;}
+.x-unit, .x-numeric-add, .x-numeric-minus{ margin:0; padding:0;  border:1px solid #CCC;}
+.x-unit{ width:2.75em; height:22px; line-height:22px; padding-left:2px; outline:none; border-radius:2px 0 0 2px;}
+.x-numeric-add, .x-numeric-minus{ width:1.47em; height:22px; line-height:22px; display:inline-block; text-align:center; text-decoration:none; background-color:#F0F0F0; color:#000; border-left:none; vertical-align:bottom; font-family:Arial,Helvetica,sans-serif; /*padding:0.182em;*/ }
+.x-numeric-minus{ border-radius:0 2px 2px 0;}

@@ -1,0 +1,24 @@
+﻿.x-form{padding:0; margin:0;}
+.x-form *{ padding:0; margin:0;}
+.x-form ul,x-form li{list-style:none;}
+.x-form li{height:35px; /*border:1px solid green;*/}
+.x-form .text, .x-form .select select{outline-color:#24E389}
+.x-form label, .x-form span, .x-form p{ float:left; display:inline; font-size:0.852em; vertical-align:middle;/*ie7*/ }
+.x-form label, .x-form p, .x-form .checkbox, .x-form .radio{ margin-top:4px; }
+.x-form .x-msg{ margin-left:5px; color:#F00; font-weight:normal;}
+.x-form x-msg.error{ color:#F00;}
+.x-form x-msg.success{ color:green;}
+.x-form label{ width:100px; text-align:right; margin-right:15px;}
+.x-form .checkbox{ margin-right:15px;}
+.x-form .radio{ margin-right:15px;}
+.x-form .x-numeric{ display:inline; float:none;}
+.x-form.default .text{ width:200px; height:18px; line-height:18px; padding:4px; color:#555;  border:1px solid #CCC; border-radius:3px;}
+.x-form.default .select{ /*height:24px; line-height:24px; border:1px solid #CCC;*/ overflow:hidden; /*border-radius:4px;*/}
+.x-form.default .select select{ padding:4px; border:1px solid #CCC; border-radius:4px; /*margin:-1px 0 -1px 0; padding:4px; border:0;*/}
+.x-form.default .button{ min-width:80px; padding:6px 10px 6px; margin-right:5px; text-align:center; cursor:pointer; border:none; font-weight:bold; color:#FFF; background-color:#43A1DA; border-radius:4px;}
+.x-form.default .checkbox{ background-image:url("form2.png"); background-repeat:no-repeat; background-position:-2px -2px;}
+.x-form.default .checkbox input{ height:16px; width:18px; float:left; opacity:0; filter:alpha(opacity=0);}
+.x-form.default .checkbox.on{ background-position:-2px -62px;}
+.x-form.default .radio{ background-image:url("form2.png"); background-repeat:no-repeat; background-position:-2px -31px;}
+.x-form.default .radio input{ height:16px; width:18px; float:left; opacity:0; filter:alpha(opacity=0);}
+.x-form.default .radio.on{ background-position:-2px -91px;}

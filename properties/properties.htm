@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8" />
+        <title>Properties</title>
+        <!--<link href="../SyntaxHighlighter.css" rel="stylesheet" />-->
+        <link href="../widget.css" rel="stylesheet" />
+        <link href="properties.css" rel="stylesheet" />
+        <style>
+			body{ padding:0; margin:0;}
+		</style> 
+        <script src="../$.js"></script>
+        <script src="properties.js"></script>
+        <script src="../calendar/calendar.js"></script>
+        <!--<script src="../SyntaxHighlighter.js"></script>-->
+        <script>
+			_$(document).ready(function(){
+				var p = new _$.widget.Properties({
+					"title": {"name": "Property", "value": "Value"}
+				});//.appendTo(_$("#properties")[0]);
+				p.addAttribute("Id","0001");
+				p.addAttribute("Name","flyend");
+				p.addAttribute("Date",{"text": "2012-12-12", "xtype": new _$.widget.Calendar()});
+				//dp.SyntaxHighlighter.HighlightAll('code');
+			});
+		</script>
+    </head>
+    <body>
+        <!--<div class="description">
+        	<h3>按顺序导入</h3>
+        	<ul>
+            	<li>tree.css</li>
+            	<li>_$.js脚本</li>
+                <li>tree.js脚本</li>
+            </ul>
+        </div>-->
+    	<div class="container">
+        	<div id="properties"></div>
+            <div class="section">
+                <code>
+                <textarea readonly="readonly" name="code" class="jscript">
+                    var options=new _$.Options("simple");//创建普通树，默认为普通树
+                    options.appendTo(node);//添加到node对象中，node为dom节点
+                    options.bind("click","../tree/tree.jsp?id=3",fn);//绑定单击事件，传递json格式，符合["one","two"]，fn为回调函数
+                    options.doClickSpace();//点击空白处取消
+                </textarea>
+                </code>
+            </div>
+        </div>
+        <!--<iframe id="ajaxHistory" width="600"></iframe>-->
+    </body>
+</html>

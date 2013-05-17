@@ -1,0 +1,14 @@
+﻿@charset "utf-8";
+.x-properties-table{ width:100%; width:500px; max-width:100%; min-width:18.75em; padding:0; margin:0; border-collapse:collapse; border:1px solid #DDD; border-left:0; font:1.0em Arial,sans-serif normal; position:relative;}
+.x-properties-table th, .x-properties td{ height:30px; padding:0 0 0 8px; text-align:left;}
+.x-properties-table th{ background-color:#F9F9F9; color:#666; border-left:1px solid #DDD;}
+.x-properties-table td{ border-top:1px solid #DDD; border-left:1px solid #DDD;}
+.x-properties-table td label{ display:block;}
+.x-properties-name{width:25%;}
+.x-properties-component{ height:30px; position:absolute; display:none;}
+.x-properties-show{ height:31px; display:block; border:1px solid #DDD; /*background:#FFF url("http://dev.sencha.com/deploy/ext-4.0.0/resources/themes/images/default/form/date-trigger.gif") right center no-repeat;*/ box-shadow:1px 1px 1px 0 #EAEAEA inset;}
+.x-properties-component input{ height:25px; width:348px; margin-top:2px; float:left; padding:1px 0 1px 8px; border:none; font:1.0em Arial,sans-serif normal; outline:none; }
+.x-properties-trigger{ width:18px; height:100%; float:right; display:inline; background:url("http://source.qunar.com/site/images/2011/QN1CS1.gif") 0px center no-repeat; cursor:pointer;}
+.x-properties-component .x-calendar{ display:none;}
+.x-properties-component-open .x-calendar{ display:block;}
+.x-calendar{ width:100%;}

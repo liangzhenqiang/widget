@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8" />
+        <title>form</title>
+        <link href="../widget.css" rel="stylesheet" />
+        <style>
+			.x-suggestion{ padding:0; margin:0; position:absolute; border:1px solid #CCC; background:#FFF; z-index:9999; display:none;}
+			.x-suggestion li{ list-style:none; height:25px; line-height:25px; padding-left:5px; cursor:default;}
+			.x-suggestion-current{ background:#DDD;}
+		</style>
+        <script src="../$.js"></script>
+        <script src="suggestionField.js"></script>
+        <script>
+			_$(document).ready(function(){
+				new _$.widget.SuggestionField({
+					"field": document.getElementById("suggest"),
+					"store": ["a","abc","java","js","yahoo","javascript","android","and"," a grid","jay","jojo"]
+				});
+				/*var json = {"data":{"allCount":1,"currentPage":1,"list":[{"areas":"","author":"马能福","category":"3583","childId":"239275","childModule":"3625","content":"H、PRL、<span class='keyword'>SSS<\/span>水平影响 动物学报, 1995，（41）2：201~206\n12．柯叶艳,王国杰. 日粮中添加大豆黄酮对鹌鹑生产性能和血液中激素水平的影响 畜牧兽医学报,2002,33(3)：243","id":"239958","image":"","keyword":"饲料及加工","module":"article","rateClick":"0","ratingCount":"0","ratingScores":"0.0","recommendCount":"0","sortTime":"1350829687000","time":"2012-10-21 22:28:07","title":"新型绿色饲料添加剂:大豆异黄酮 - 新型绿色饲料添加剂:大豆异黄酮","url":"content/resource/articlepicture/articles.jsp?resourceId=239958&articleId=239275"}],"pageSize":10},"msg":"success"};
+				"data.list[i].author="
+				function mapping(root,obj){
+					var array = [];
+					for(var i = 0, p = root.split("."), l = p.length; i ^ l; i++){
+						console.log(p)
+						var o = p[i],
+							last;
+						
+						if(!!~o.indexOf("[")){
+							var start = o.lastIndexOf("["),
+								temp = o.substr(start).replace(/\[/g,"").replace(/\]/g,"");
+							
+							for(var j = 0, attrs = temp.split(","); j ^ attrs.length; j++){
+								array.push(attrs[j].substr(1));
+							}
+							p[i] = o.substr(0,start);
+						}
+						obj = obj[p[i]];
+					}
+					//console.log(obj[0][array[0]])
+					/*for(var i = 0, l = obj.length; i ^ l; i++){
+						for(var j = 0; j ^ array.length; j++){
+							console.log(obj[i][array[j]])	
+						}
+					}
+					
+					//obj = obj[p[i]];
+					return{
+						"list": obj,
+						"attributes": array	
+					};
+				}
+				//console.log(mapping("data.list[@title,@keyword]",json));*/
+			});
+		</script>
+    </head>
+    <body>
+    	<form id="addForm" action="/" method="get">
+        	<input type="text" name="a" id="suggest" class="text" tabindex="1" style=" width:350px; border:1px solid #CCC; padding:5px 2px; outline:none;" />
+        </form>
+    </body>
+</html>
