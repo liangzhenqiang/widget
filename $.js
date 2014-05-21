@@ -28,8 +28,8 @@
 				var nodes = (context || document).getElementsByTagName(tag || "*");
 				if(tag){
 					elements = context.getElementsByTagName(tag);
-					//console.log(elements)
-					return elements;
+					
+				return elements;
 				}
 				else if(cls){
 					if(document.getElementsByClassName){
@@ -434,10 +434,10 @@
 			}
 			catch(e){
 				continue;
-			}
+			
 			break;
 		}
-		xmlhttp.open(type ? "POST" : "GET",url,1);//true 异步（默认）
+		xmlhttp.open(type ? "POST" : "GET",url,1);
 		xmlhttp.setRequestHeader("If-Modified-Since","0");
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
 		xmlhttp.onreadystatechange=function(){
